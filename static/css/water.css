@@ -1,0 +1,21 @@
+/* =========================================================================
+   WATER PREDICTION CSS
+   =========================================================================
+   We will keep it modular and DRY. It shares most layout structure with air.css.
+   We just need to define specific decorative highlights for water.
+*/
+@import url('air.css');
+
+.water-decorator {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(255,255,255,0) 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.risk-badge.low { background-color: rgba(16,185,129,0.15); color: var(--risk-low); }
+.risk-badge.high { background-color: rgba(239,68,68,0.15); color: var(--risk-high); }

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Prediction - EcoVision</title>
+    
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/air.css">
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/static/js/darkmode.js"></script>
+    <script src="/static/js/auth.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- SIDEBAR (Reused Structure) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div style="width: 28px; height: 28px; background: linear-gradient(135deg, var(--risk-low) 0%, var(--accent) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white;">
+                    <i data-feather="globe" style="width:16px; height:16px"></i>
+                </div>
+                EcoVision
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/templates/dashboard.html"><i data-feather="grid"></i> Dashboard</a></li>
+                <li><a href="/templates/air_prediction.html" class="active"><i data-feather="wind"></i> Air Prediction</a></li>
+                <li><a href="/templates/water_prediction.html"><i data-feather="droplet"></i> Water Prediction</a></li>
+                <li><a href="/templates/history.html"><i data-feather="clock"></i> History</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+                    <i data-feather="moon" id="theme-icon-moon"></i>
+                    <i data-feather="sun" id="theme-icon-sun" style="display:none;"></i>
+                </button>
+                <a href="#" id="logout-btn" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;"><i data-feather="log-out"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <header class="topbar animate-fade-in">
+                <div class="user-welcome">
+                    <h1>Air Quality Intelligence</h1>
+                    <p>Input observable conditions to predict respiratory risks.</p>
+                </div>
+                <div class="topbar-actions">
+                    <div onclick="window.location.href='/templates/profile.html'" title="View Profile" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        <i data-feather="user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="prediction-layout">
+                
+                <!-- Input Form Card -->
+                <div class="card animate-slide-up delay-100">
+                    <h3 style="margin-bottom: var(--spacing-4);">Condition Survey</h3>
+                    
+                    <form id="air-form" class="prediction-form">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Geographic Region</label>
+                                <select name="Region" class="form-control">
+                                    <option value="North">North India</option>
+                                    <option value="South">South India</option>
+                                    <option value="East">East India</option>
+                                    <option value="West">West India</option>
+                                    <option value="Central">Central India</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" name="State" class="form-control" placeholder="e.g., Delhi" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>District Type</label>
+                                <select name="District_Type" class="form-control">
+                                    <option value="Urban">Urban</option>
+                                    <option value="Semi-Urban">Semi-Urban</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Season</label>
+                                <select name="season" class="form-control">
+                                    <option value="winter">Winter</option>
+                                    <option value="summer">Summer</option>
+                                    <option value="monsoon">Monsoon</option>
+                                    <option value="normal" selected>Normal</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <h4 style="margin: var(--spacing-4) 0 var(--spacing-2) 0; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 4px;">Observable Conditions</h4>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Traffic Level</label>
+                                <select name="traffic_level" class="form-control">
+                                    <option value="low">Low</option>
+                                    <option value="moderate" selected>Moderate</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Visible Haze / Smog</label>
+                                <select name="visible_haze" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="light" selected>Light</option>
+                                    <option value="dense">Dense</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Smell of Smoke</label>
+                                <select name="smell_of_smoke" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="mild" selected>Mild</option>
+                                    <option value="strong">Strong</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Open Burning Nearby</label>
+                                <select name="open_burning_nearby" class="form-control">
+                                    <option value="no" selected>No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: var(--spacing-4) 0 var(--spacing-2) 0; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 4px;">Habitability Metrics</h4>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Ventilation Quality</label>
+                                <select name="ventilation_quality" class="form-control">
+                                    <option value="good">Good</option>
+                                    <option value="average" selected>Average</option>
+                                    <option value="poor">Poor</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Indoor Cooking Fuel</label>
+                                <select name="indoor_cooking_fuel" class="form-control">
+                                    <option value="clean_electric">Electric</option>
+                                    <option value="lpg" selected>LPG</option>
+                                    <option value="biomass">Biomass (Wood/Dung)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Nearby Industry</label>
+                                <select name="nearby_industry" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="light" selected>Light</option>
+                                    <option value="heavy">Heavy Industrial</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-2);">
+                            Run Prediction Model <i data-feather="activity"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Result Card -->
+                <div class="card result-panel animate-slide-up delay-200" id="result-card">
+                    <div class="air-decorator"></div>
+                    
+                    <!-- Loading State -->
+                    <div class="loading-overlay" id="loading-overlay">
+                        <div class="spinner"></div>
+                        <p style="font-weight: 500;">Running AI inferences...</p>
+                    </div>
+
+                    <!-- Placeholder State (Before prediction) -->
+                    <div class="result-placeholder" id="result-placeholder">
+                        <i data-feather="wind" style="width: 64px; height: 64px; margin-bottom: var(--spacing-4); color: var(--border);"></i>
+                        <h3>Awaiting Input</h3>
+                        <p>Fill out the survey and click predict to see the intelligence report.</p>
+                    </div>
+
+                    <!-- Success State (After prediction completes) -->
+                    <div class="result-content" id="result-content">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-4);">
+                            <div>
+                                <h3 style="color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">AI Prediction</h3>
+                                <div style="font-size: 2.5rem; font-weight: 700; margin-top: -5px;" id="val-quality">Poor</div>
+                            </div>
+                            <div class="risk-badge poor" id="val-badge">High Risk</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border-radius: var(--radius-md); padding: var(--spacing-4); margin-bottom: var(--spacing-4);">
+                            <h4 style="margin-bottom: var(--spacing-2); font-size: 0.95rem;">System Estimated Metrics</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2); font-size: 0.9rem;">
+                                <div><span style="color: var(--text-muted)">PM2.5:</span> <strong id="val-pm25">130 µg/m³</strong></div>
+                                <div><span style="color: var(--text-muted)">PM10:</span> <strong id="val-pm10">210 µg/m³</strong></div>
+                                <div><span style="color: var(--text-muted)">NO2:</span> <strong id="val-no2">85 µg/m³</strong></div>
+                                <div><span style="color: var(--text-muted)">CO:</span> <strong id="val-co">2.3 mg/m³</strong></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-3); font-size: 0.95rem;">Health Threat Intelligence</h4>
+                        
+                        <div style="margin-bottom: var(--spacing-3);">
+                            <strong style="display:block; font-size: 0.85rem; color: var(--text-muted);">Potential Conditions:</strong>
+                            <ul style="padding-left: 1.25rem; font-size: 0.9rem;" id="val-diseases">
+                                <li>Severe Asthma</li>
+                                <li>Cardiovascular Risk</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <strong style="display:block; font-size: 0.85rem; color: var(--text-muted);">Recommended Protocols:</strong>
+                            <ul style="padding-left: 1.25rem; font-size: 0.9rem;" id="val-precautions">
+                                <li>Stay indoors</li>
+                                <li>Wear N95 Mask</li>
+                            </ul>
+                        </div>
+                    </div> <!-- /result-content -->
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Application Logic -->
+    <script src="/static/js/dashboard.js"></script> <!-- Reuses sidebar logic -->
+    <script src="/static/js/airPrediction.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+/* =========================================================================
+   AUTH CSS (Shared styles for Login & Signup)
+   To prevent duplicating code, we'll write shared rules here.
+   ========================================================================= */
+
+body {
+    background-color: var(--bg-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    padding: var(--spacing-4);
+    z-index: 10;
+}
+
+.auth-card {
+    padding: var(--spacing-8);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Beautiful Animated Gradient behind the card */
+.auth-bg-blob {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(37,99,235,0.4) 0%, rgba(255,255,255,0) 70%);
+    top: -150px;
+    right: -150px;
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(40px);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+}
+
+.auth-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-2);
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: var(--spacing-4);
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-2);
+    color: var(--text-main);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: var(--transition-fast);
+    background-color: transparent;
+    color: var(--text-main);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.auth-btn {
+    width: 100%;
+    margin-top: var(--spacing-4);
+    padding: 0.75rem;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-6);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--accent);
+    font-weight: 600;
+    margin-left: var(--spacing-1);
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message Box */
+.error-msg {
+    display: none;
+    background-color: #fef2f2;
+    color: var(--risk-high);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-4);
+    border: 1px solid #f87171;
+}
+
+.success-msg {
+    display: none;
+    background-color: #ecfdf5;
+    color: var(--risk-low);
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-4);
+    border: 1px solid #34d399;
+}

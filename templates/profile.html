@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - EcoVision</title>
+    
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/profile.css">
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/static/js/darkmode.js"></script>
+    <script src="/static/js/auth.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div style="width: 28px; height: 28px; background: linear-gradient(135deg, var(--risk-low) 0%, var(--accent) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white;">
+                    <i data-feather="globe" style="width:16px; height:16px"></i>
+                </div>
+                EcoVision
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/templates/dashboard.html"><i data-feather="grid"></i> Dashboard</a></li>
+                <li><a href="/templates/air_prediction.html"><i data-feather="wind"></i> Air Prediction</a></li>
+                <li><a href="/templates/water_prediction.html"><i data-feather="droplet"></i> Water Prediction</a></li>
+                <li><a href="/templates/history.html"><i data-feather="clock"></i> History</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+                    <i data-feather="moon" id="theme-icon-moon"></i>
+                    <i data-feather="sun" id="theme-icon-sun" style="display:none;"></i>
+                </button>
+                <a href="#" id="logout-btn" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;"><i data-feather="log-out"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <header class="topbar animate-fade-in">
+                <div class="user-welcome">
+                    <h1>User Profile</h1>
+                    <p>Manage your account settings and preferences.</p>
+                </div>
+                <div class="topbar-actions">
+                    <div onclick="window.location.href='/templates/profile.html'" title="View Profile" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        <i data-feather="user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="card animate-slide-up delay-100">
+                <div class="profile-layout">
+                    
+                    <div class="profile-sidebar">
+                        <div class="avatar-lg" id="profile-initials">?</div>
+                        <h3 id="profile-name">Loading...</h3>
+                        <p style="color: var(--text-muted); margin-top: -10px;" id="profile-email">loading@example.com</p>
+                        
+                        <div style="margin-top: var(--spacing-4); padding: var(--spacing-3); background-color: var(--bg-main); border-radius: var(--radius-md); width: 100%;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">Platform Standing</div>
+                            <strong style="color: var(--accent);">Active Researcher</strong>
+                        </div>
+                    </div>
+
+                    <div class="profile-settings-form">
+                        <h3 style="margin-bottom: var(--spacing-4); border-bottom: 1px solid var(--border); padding-bottom: var(--spacing-3);">Account Information</h3>
+                        
+                        <div class="form-group">
+                            <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:var(--spacing-2);">First Name</label>
+                            <input type="text" class="form-control" id="input-fname" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:var(--spacing-2);">Last Name</label>
+                            <input type="text" class="form-control" id="input-lname" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display:block; font-size:0.85rem; font-weight:600; margin-bottom:var(--spacing-2);">Email Address</label>
+                            <input type="email" class="form-control" id="input-email" readonly>
+                        </div>
+
+                        <div style="margin-top: var(--spacing-6); display: flex; gap: var(--spacing-3);">
+                            <button class="btn btn-outline" onclick="alert('Password reset link sent!')">Reset Password</button>
+                            <button class="btn btn-primary" style="background-color: var(--risk-high); border-color: var(--risk-high);" onclick="alert('Account deletion requested.')">Delete Account</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/profile.js"></script>
+</body>
+</html>

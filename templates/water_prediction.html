@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Prediction - EcoVision</title>
+    
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="/static/css/water.css">
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="/static/js/darkmode.js"></script>
+    <script src="/static/js/auth.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div style="width: 28px; height: 28px; background: linear-gradient(135deg, var(--risk-low) 0%, var(--accent) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white;">
+                    <i data-feather="globe" style="width:16px; height:16px"></i>
+                </div>
+                EcoVision
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/templates/dashboard.html"><i data-feather="grid"></i> Dashboard</a></li>
+                <li><a href="/templates/air_prediction.html"><i data-feather="wind"></i> Air Prediction</a></li>
+                <li><a href="/templates/water_prediction.html" class="active"><i data-feather="droplet"></i> Water Prediction</a></li>
+                <li><a href="/templates/history.html"><i data-feather="clock"></i> History</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+                    <i data-feather="moon" id="theme-icon-moon"></i>
+                    <i data-feather="sun" id="theme-icon-sun" style="display:none;"></i>
+                </button>
+                <a href="#" id="logout-btn" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;"><i data-feather="log-out"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <header class="topbar animate-fade-in">
+                <div class="user-welcome">
+                    <h1>Water Contamination Intelligence</h1>
+                    <p>Detect bio-chemical risks based on physical water traits.</p>
+                </div>
+                <div class="topbar-actions">
+                    <div onclick="window.location.href='/templates/profile.html'" title="View Profile" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        <i data-feather="user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <div class="prediction-layout">
+                
+                <!-- Input Form Card -->
+                <div class="card animate-slide-up delay-100">
+                    <h3 style="margin-bottom: var(--spacing-4);">Visual & Geographic Survey</h3>
+                    
+                    <form id="water-form" class="prediction-form">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Geographic Region</label>
+                                <select name="Region" class="form-control">
+                                    <option value="North">North India</option>
+                                    <option value="South">South India</option>
+                                    <option value="East">East India</option>
+                                    <option value="West">West India</option>
+                                    <option value="Central">Central India</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" name="State" class="form-control" placeholder="e.g., Bihar" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>District Type</label>
+                                <select name="District_Type" class="form-control">
+                                    <option value="Urban">Urban</option>
+                                    <option value="Semi-Urban">Semi-Urban</option>
+                                    <option value="Rural">Rural</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Season</label>
+                                <select name="season" class="form-control">
+                                    <option value="dry">Dry</option>
+                                    <option value="normal" selected>Normal</option>
+                                    <option value="monsoon">Monsoon</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: var(--spacing-4) 0 var(--spacing-2) 0; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 4px;">Visual & Olfactory Signals</h4>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Water Appearance</label>
+                                <select name="water_appearance" class="form-control">
+                                    <option value="clear">Clear</option>
+                                    <option value="slightly_turbid" selected>Slightly Turbid / Cloudy</option>
+                                    <option value="muddy">Muddy / Brown</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Sewage Odor Level</label>
+                                <select name="sewage_smell" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="mild" selected>Mild / Occasional</option>
+                                    <option value="strong">Strong / Persistent</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Dead Fish Reported Nearby?</label>
+                                <select name="dead_fish_reported" class="form-control">
+                                    <option value="no" selected>No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4 style="margin: var(--spacing-4) 0 var(--spacing-2) 0; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); padding-bottom: 4px;">Environmental Factors</h4>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-3);">
+                            <div class="form-group">
+                                <label>Water Source Type</label>
+                                <select name="water_source" class="form-control">
+                                    <option value="tap">Municipal Tap</option>
+                                    <option value="borewell">Groundwater / Borewell</option>
+                                    <option value="river">River</option>
+                                    <option value="lake">Lake / Pond</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nearby Industry</label>
+                                <select name="nearby_industry" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="light" selected>Light</option>
+                                    <option value="heavy">Heavy Industrial</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label>Recent Flooding Event</label>
+                                <select name="recent_flood" class="form-control">
+                                    <option value="no" selected>No</option>
+                                    <option value="yes">Yes (Within last 14 days)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: var(--spacing-2);">
+                            Run Prediction Model <i data-feather="activity"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Result Card -->
+                <div class="card result-panel animate-slide-up delay-200" id="result-card">
+                    <div class="water-decorator"></div>
+                    
+                    <div class="loading-overlay" id="loading-overlay">
+                        <div class="spinner"></div>
+                        <p style="font-weight: 500;">Running AI inferences...</p>
+                    </div>
+
+                    <div class="result-placeholder" id="result-placeholder">
+                        <i data-feather="droplet" style="width: 64px; height: 64px; margin-bottom: var(--spacing-4); color: var(--border);"></i>
+                        <h3>Awaiting Input</h3>
+                        <p>Fill out the survey and click predict to see the intelligence report.</p>
+                    </div>
+
+                    <div class="result-content" id="result-content">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--spacing-4);">
+                            <div>
+                                <h3 style="color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em;">Contamination Risk</h3>
+                                <div style="font-size: 2.5rem; font-weight: 700; margin-top: -5px;" id="val-risk">High</div>
+                            </div>
+                            <div class="risk-badge high" id="val-badge">Critical</div>
+                        </div>
+
+                        <div style="background: var(--bg-main); border-radius: var(--radius-md); padding: var(--spacing-4); margin-bottom: var(--spacing-4);">
+                            <h4 style="margin-bottom: var(--spacing-2); font-size: 0.95rem;">System Estimated Metrics</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-2); font-size: 0.9rem;">
+                                <div><span style="color: var(--text-muted)">pH Level:</span> <strong id="val-ph">6.5</strong></div>
+                                <div><span style="color: var(--text-muted)">Coliform:</span> <strong id="val-coliform">650 MPN</strong></div>
+                                <div><span style="color: var(--text-muted)">Nitrate:</span> <strong id="val-nitrate">45 mg/L</strong></div>
+                                <div><span style="color: var(--text-muted)">BOD:</span> <strong id="val-bod">7.2 mg/L</strong></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-3); font-size: 0.95rem;">Health Threat Intelligence</h4>
+                        
+                        <div style="margin-bottom: var(--spacing-3);">
+                            <strong style="display:block; font-size: 0.85rem; color: var(--text-muted);">Potential Conditions:</strong>
+                            <ul style="padding-left: 1.25rem; font-size: 0.9rem;" id="val-diseases">
+                                <li>Cholera</li>
+                                <li>Gastrointestinal Infections</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <strong style="display:block; font-size: 0.85rem; color: var(--text-muted);">Recommended Protocols:</strong>
+                            <ul style="padding-left: 1.25rem; font-size: 0.9rem;" id="val-precautions">
+                                <li>Boil water immediately</li>
+                                <li>Avoid direct consumption</li>
+                            </ul>
+                        </div>
+                    </div> 
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/waterPrediction.js"></script>
+</body>
+</html>

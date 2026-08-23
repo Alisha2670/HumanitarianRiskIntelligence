@@ -1,0 +1,12 @@
+/* 
+   We will import login.css for signup.css since they share the same card and form layouts.
+   This enforces the DRY (Don't Repeat Yourself) principle.
+*/
+@import url('login.css');
+
+/* Specific styles for signup to support row-based name layout */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-3);
+}

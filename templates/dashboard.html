@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EcoVision</title>
+    
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+
+    <!-- Essential JS -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- We load DarkMode initially to prevent white flashing -->
+    <script src="/static/js/darkmode.js"></script>
+    <script src="/static/js/auth.js"></script>
+</head>
+<body>
+
+    <div class="dashboard-layout">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div style="width: 28px; height: 28px; background: linear-gradient(135deg, var(--risk-low) 0%, var(--accent) 100%); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: white;">
+                    <i data-feather="globe" style="width:16px; height:16px"></i>
+                </div>
+                EcoVision
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="/templates/dashboard.html" class="active"><i data-feather="grid"></i> Dashboard</a></li>
+                <li><a href="/templates/air_prediction.html"><i data-feather="wind"></i> Air Prediction</a></li>
+                <li><a href="/templates/water_prediction.html"><i data-feather="droplet"></i> Water Prediction</a></li>
+                <li><a href="/templates/history.html"><i data-feather="clock"></i> History</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button class="icon-btn" id="theme-toggle" title="Toggle Theme">
+                    <i data-feather="moon" id="theme-icon-moon"></i>
+                    <i data-feather="sun" id="theme-icon-sun" style="display:none;"></i>
+                </button>
+                <a href="#" id="logout-btn" style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;"><i data-feather="log-out"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            
+            <!-- Topbar (Greeting) -->
+            <header class="topbar animate-fade-in">
+                <div class="user-welcome">
+                    <h1>Welcome back, <span id="user-name-display">User</span></h1>
+                    <p>Here is your environmental risk intelligence overview.</p>
+                </div>
+                <div class="topbar-actions">
+                    <button class="icon-btn"><i data-feather="bell"></i></button>
+                    <div onclick="window.location.href='/templates/profile.html'" title="View Profile" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; background-color: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                        <i data-feather="user"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Key Metrics Grid -->
+            <div class="dash-grid">
+                <!-- Metric 1 -->
+                <div class="card metric-card animate-slide-up delay-100">
+                    <div class="metric-header">
+                        Total Predictions <i data-feather="activity" style="color: var(--accent)"></i>
+                    </div>
+                    <div class="metric-value">12</div>
+                    <div style="font-size: 0.85rem; color: var(--risk-low); display: flex; align-items: center; gap: 4px;">
+                        <i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 4 this week
+                    </div>
+                </div>
+
+                <!-- Metric 2 -->
+                <div class="card metric-card animate-slide-up delay-200">
+                    <div class="metric-header">
+                        Average Air Risk <i data-feather="wind" style="color: var(--risk-med)"></i>
+                    </div>
+                    <div class="metric-value">Moderate</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                        Based on your last 5 locations
+                    </div>
+                </div>
+
+                <!-- Metric 3 -->
+                <div class="card metric-card animate-slide-up delay-300">
+                    <div class="metric-header">
+                        Critical Water Alerts <i data-feather="droplet" style="color: var(--risk-high)"></i>
+                    </div>
+                    <div class="metric-value">1</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                        Action required in last 48h
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complex Grid Layout -->
+            <div class="dash-grid-large">
+                <!-- Quick Actions / Predictors -->
+                <div class="card animate-slide-up delay-400">
+                    <h3 style="margin-bottom: var(--spacing-4);">New Prediction</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Select an intelligence module to run a new prediction based on live observations.</p>
+                    
+                    <div class="quick-action-list">
+                        <div class="quick-action-item" onclick="window.location.href='/templates/air_prediction.html'">
+                            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+                                <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(37,99,235,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center;">
+                                    <i data-feather="wind"></i>
+                                </div>
+                                <div>
+                                    <strong style="display: block;">Run Air Quality Model</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">Predict PM2.5, NO2, and Asthma risks</span>
+                                </div>
+                            </div>
+                            <i data-feather="chevron-right" style="color: var(--text-muted)"></i>
+                        </div>
+
+                        <div class="quick-action-item" onclick="window.location.href='/templates/water_prediction.html'">
+                            <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+                                <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(16,185,129,0.1); color: var(--risk-low); display: flex; align-items: center; justify-content: center;">
+                                    <i data-feather="droplet"></i>
+                                </div>
+                                <div>
+                                    <strong style="display: block;">Run Water Contamination Model</strong>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted);">Predict Coliform, pH, and Cholera risks</span>
+                                </div>
+                            </div>
+                            <i data-feather="chevron-right" style="color: var(--text-muted)"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Weather / Location Card -->
+                <div class="card animate-slide-up delay-400">
+                    <h3 style="margin-bottom: var(--spacing-4);">Regional Baseline</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4);">
+                        <div>
+                            <div style="font-size: 2rem; font-weight: 700;">28°C</div>
+                            <div style="color: var(--text-muted);">Delhi, Urban Zone</div>
+                        </div>
+                        <i data-feather="sun" style="width: 48px; height: 48px; color: var(--risk-med)"></i>
+                    </div>
+                    <div style="background-color: var(--primary); color: var(--bg-main); padding: var(--spacing-3); border-radius: var(--radius-md); text-align: center; font-size: 0.85rem;">
+                        <strong>Note:</strong> Winter conditions usually increase local baseline PM10 by 18%.
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Init Dashboard Logic -->
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

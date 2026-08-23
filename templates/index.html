@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoVision - Environmental Prediction Platform</title>
+    
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="/static/css/variables.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/navbar.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+
+    <!-- Icons (Feather Icons) -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header id="main-nav">
+        <div class="container navbar">
+            <div class="logo-container">
+                <div class="logo-icon"><i data-feather="globe"></i></div>
+                EcoVision
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="/templates/about.html">About AI</a></li>
+                <li><a href="/templates/contact.html">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="btn btn-outline" onclick="window.location.href='/templates/login.html'">Login</button>
+                <button class="btn btn-primary" onclick="window.location.href='/templates/signup.html'">Get Started</button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-tgl" id="menu-btn"><i data-feather="menu"></i></button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <!-- background decorations -->
+        <div class="hero-bg"></div>
+        <div class="hero-bg-2"></div>
+
+        <div class="container hero-container">
+            <div class="hero-content animate-slide-up">
+                <h1>Intelligence for a safer environment.</h1>
+                <p>Advanced machine learning models predicting air and water risks in real-time. Protect communities with accurate data.</p>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="window.location.href='/templates/signup.html'">
+                        Start Predicting <i data-feather="arrow-right"></i>
+                    </button>
+                    <button class="btn btn-outline" onclick="window.location.href='#features'">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+
+            <div class="hero-visual animate-slide-up delay-200">
+                <!-- Decorative Glass Card 1 -->
+                <div class="card card-glass float-element">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <strong>Air Quality Index</strong>
+                        <span style="color: var(--risk-low);"><i data-feather="check-circle"></i> Good</span>
+                    </div>
+                    <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                        <div style="width: 25%; height: 100%; background: var(--risk-low);"></div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">PM2.5 levels are stable.</p>
+                </div>
+
+                <!-- Decorative Glass Card 2 -->
+                <div class="card card-glass float-element delay-200" style="margin-left: 20%;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <strong>Water Risk Alert</strong>
+                        <span style="color: var(--risk-high);"><i data-feather="alert-triangle"></i> High</span>
+                    </div>
+                    <div style="height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                        <div style="width: 85%; height: 100%; background: var(--risk-high);"></div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Coliform detected in local zone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container stats-grid">
+            <div class="animate-slide-up delay-100">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Prediction Accuracy</div>
+            </div>
+            <div class="animate-slide-up delay-200">
+                <div class="stat-number">10k+</div>
+                <div class="stat-label">Analyzed Locations</div>
+            </div>
+            <div class="animate-slide-up delay-300">
+                <div class="stat-number">5M</div>
+                <div class="stat-label">Data Points</div>
+            </div>
+            <div class="animate-slide-up delay-400">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Risk Monitoring</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title text-center">Powerful ML capabilities</h2>
+            <p class="section-subtitle text-center mx-auto" style="margin: 0 auto 3rem auto;">
+                Our platform bridges the gap between complex science and practical, actionable intelligence.
+            </p>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="card feature-card animate-slide-up">
+                    <div class="feature-icon"><i data-feather="wind"></i></div>
+                    <h3>Air Pollution Models</h3>
+                    <p style="color: var(--text-muted)">Uses Random Forest architecture to evaluate PM2.5, PM10, NOx variations based on real-world inputs.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card feature-card animate-slide-up delay-100">
+                    <div class="feature-icon"><i data-feather="droplet"></i></div>
+                    <h3>Water Contamination</h3>
+                    <p style="color: var(--text-muted)">Predicts pH imbalances and bacterial presence out of simple visual or geographic traits.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card feature-card animate-slide-up delay-200">
+                    <div class="feature-icon"><i data-feather="activity"></i></div>
+                    <h3>Health Advisories</h3>
+                    <p style="color: var(--text-muted)">Don't just get data. Receive immediate risk warnings for Cholera, Typhoid, and Asthma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="cta">
+        <div class="container animate-slide-up">
+            <h2>Ready to safeguard your community?</h2>
+            <p class="section-subtitle mx-auto" style="margin: 0 auto 2rem auto;">Join researchers, NGOs, and citizens taking action today.</p>
+            <button class="btn btn-primary" onclick="window.location.href='/templates/signup.html'">Create Free Account</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 EcoVision Intelligence. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Init Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+    
+    <!-- Core Application Logic -->
+    <script src="/static/js/navbar.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

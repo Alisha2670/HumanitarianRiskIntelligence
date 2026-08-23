@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Air Quality Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>Air Quality Predictor</h1>
+      <p class="subtitle">Enter your location and practical local conditions to estimate air quality.</p>
+
+      <form id="predict-form">
+        <div class="grid">
+          <label>
+            Region
+            <select name="Region" required>
+              <option value="">Select region</option>
+              <option>North</option>
+              <option>West</option>
+              <option>South</option>
+              <option>East</option>
+              <option>Central</option>
+              <option>Northeast</option>
+              <option>Islands</option>
+              <option>Northwest</option>
+            </select>
+          </label>
+
+          <label>
+            State
+            <input name="State" type="text" placeholder="e.g., Delhi" required>
+          </label>
+
+          <label>
+            District Type
+            <select name="District_Type" required>
+              <option value="">Select district type</option>
+              <option>Urban</option>
+              <option>Semi-Urban</option>
+              <option>Rural</option>
+            </select>
+          </label>
+          <label>
+            Traffic Level
+            <select name="traffic_level">
+              <option value="low">low</option>
+              <option value="moderate" selected>moderate</option>
+              <option value="high">high</option>
+            </select>
+          </label>
+
+          <label>
+            Visible Haze
+            <select name="visible_haze">
+              <option value="none">none</option>
+              <option value="light" selected>light</option>
+              <option value="dense">dense</option>
+            </select>
+          </label>
+
+          <label>
+            Smell of Smoke
+            <select name="smell_of_smoke">
+              <option value="none">none</option>
+              <option value="mild" selected>mild</option>
+              <option value="strong">strong</option>
+            </select>
+          </label>
+
+          <label>
+            Open Burning Nearby
+            <select name="open_burning_nearby">
+              <option value="no" selected>no</option>
+              <option value="yes">yes</option>
+            </select>
+          </label>
+
+          <label>
+            Ventilation Quality
+            <select name="ventilation_quality">
+              <option value="good">good</option>
+              <option value="average" selected>average</option>
+              <option value="poor">poor</option>
+            </select>
+          </label>
+
+          <label>
+            Indoor Cooking Fuel
+            <select name="indoor_cooking_fuel">
+              <option value="clean_electric">clean_electric</option>
+              <option value="lpg" selected>lpg</option>
+              <option value="biomass">biomass</option>
+            </select>
+          </label>
+
+          <label>
+            Season
+            <select name="season">
+              <option value="summer">summer</option>
+              <option value="normal" selected>normal</option>
+              <option value="winter">winter</option>
+              <option value="monsoon">monsoon</option>
+            </select>
+          </label>
+
+          <label>
+            Nearby Industry
+            <select name="nearby_industry">
+              <option value="none">none</option>
+              <option value="light" selected>light</option>
+              <option value="heavy">heavy</option>
+            </select>
+          </label>
+        </div>
+
+        <button type="submit" id="submit-btn">Predict Air Quality</button>
+      </form>
+    </section>
+
+    <section class="card hidden" id="result-card">
+      <h2>Prediction Result</h2>
+      <div class="result-block">
+        <p><strong>Predicted Air Quality:</strong> <span id="predicted-air-quality">-</span></p>
+      </div>
+
+      <h3>Class Probabilities</h3>
+      <ul id="probabilities"></ul>
+
+      <h3>Estimated Scientific Features</h3>
+      <ul id="estimated-features"></ul>
+
+      <h3>Health Advisory</h3>
+      <p><strong>Severity:</strong> <span class="pill" id="health-severity">-</span></p>
+      <p><strong>Possible Diseases:</strong></p>
+      <ul id="health-diseases"></ul>
+      <p><strong>Precautions:</strong></p>
+      <ul id="health-precautions"></ul>
+    </section>
+
+    <section class="card hidden error" id="error-card">
+      <h2>Error</h2>
+      <p id="error-text"></p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("predict-form");
+    const submitBtn = document.getElementById("submit-btn");
+    const resultCard = document.getElementById("result-card");
+    const errorCard = document.getElementById("error-card");
+    const errorText = document.getElementById("error-text");
+    const predictedAirQuality = document.getElementById("predicted-air-quality");
+    const probsList = document.getElementById("probabilities");
+    const featuresList = document.getElementById("estimated-features");
+    const healthSeverity = document.getElementById("health-severity");
+    const diseasesList = document.getElementById("health-diseases");
+    const precautionsList = document.getElementById("health-precautions");
+
+    function resetOutput() {
+      errorCard.classList.add("hidden");
+      resultCard.classList.add("hidden");
+      errorText.textContent = "";
+      probsList.innerHTML = "";
+      featuresList.innerHTML = "";
+      diseasesList.innerHTML = "";
+      precautionsList.innerHTML = "";
+      healthSeverity.textContent = "-";
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      resetOutput();
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Predicting...";
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("/predict", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Prediction failed");
+        }
+
+        predictedAirQuality.textContent = data.predicted_air_quality;
+
+        Object.entries(data.class_probabilities).forEach(([label, value]) => {
+          const li = document.createElement("li");
+          li.textContent = `${label}: ${(value * 100).toFixed(2)}%`;
+          probsList.appendChild(li);
+        });
+
+        Object.entries(data.estimated_scientific_features).forEach(([name, value]) => {
+          const li = document.createElement("li");
+          li.textContent = `${name}: ${Number(value).toFixed(2)}`;
+          featuresList.appendChild(li);
+        });
+
+        healthSeverity.textContent = data.health_advisory?.severity || "Low";
+        (data.health_advisory?.diseases || []).forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          diseasesList.appendChild(li);
+        });
+        (data.health_advisory?.precautions || []).forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item;
+          precautionsList.appendChild(li);
+        });
+
+        resultCard.classList.remove("hidden");
+      } catch (error) {
+        errorText.textContent = error.message;
+        errorCard.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Predict Air Quality";
+      }
+    });
+  </script>
+</body>
+</html>

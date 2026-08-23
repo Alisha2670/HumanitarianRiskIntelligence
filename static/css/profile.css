@@ -1,0 +1,60 @@
+/* =========================================================================
+   PROFILE CSS
+   ========================================================================= */
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-6);
+}
+
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-4);
+}
+
+.avatar-lg {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--risk-low) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-2);
+}
+
+.profile-settings-form {
+    max-width: 600px;
+}
+
+.profile-settings-form .form-group {
+    margin-bottom: var(--spacing-4);
+}
+
+.profile-settings-form input.form-control {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    width: 100%;
+}
+
+.profile-settings-form input.form-control:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+}
