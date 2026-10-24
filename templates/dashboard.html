@@ -65,69 +65,76 @@
 
             <!-- Key Metrics Grid -->
             <div class="dash-grid">
-                <!-- Metric 1 -->
+                <!-- Metric 1: Total Predictions -->
                 <div class="card metric-card animate-slide-up delay-100">
                     <div class="metric-header">
                         Total Predictions <i data-feather="activity" style="color: var(--accent)"></i>
                     </div>
-                    <div class="metric-value">12</div>
-                    <div style="font-size: 0.85rem; color: var(--risk-low); display: flex; align-items: center; gap: 4px;">
-                        <i data-feather="arrow-up" style="width: 14px; height: 14px;"></i> 4 this week
+                    <div class="metric-value" id="dash-total-predictions">0</div>
+                    <div id="dash-predictions-trend" style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+                        <i data-feather="clock" style="width: 14px; height: 14px;"></i> <span>Calculating...</span>
                     </div>
                 </div>
 
-                <!-- Metric 2 -->
+                <!-- Metric 2: Average Air Risk -->
                 <div class="card metric-card animate-slide-up delay-200">
                     <div class="metric-header">
                         Average Air Risk <i data-feather="wind" style="color: var(--risk-med)"></i>
                     </div>
-                    <div class="metric-value">Moderate</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted);">
-                        Based on your last 5 locations
+                    <div class="metric-value" id="dash-avg-air-risk">--</div>
+                    <div id="dash-air-risk-sub" style="font-size: 0.85rem; color: var(--text-muted);">
+                        Based on your logged assessments
                     </div>
                 </div>
 
-                <!-- Metric 3 -->
+                <!-- Metric 3: Critical Alerts -->
                 <div class="card metric-card animate-slide-up delay-300">
                     <div class="metric-header">
-                        Critical Water Alerts <i data-feather="droplet" style="color: var(--risk-high)"></i>
+                        Critical Risk Alerts <i data-feather="alert-triangle" style="color: var(--risk-high)"></i>
                     </div>
-                    <div class="metric-value">1</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    <div class="metric-value" id="dash-critical-alerts">0</div>
+                    <div id="dash-critical-alerts-sub" style="font-size: 0.85rem; color: var(--text-muted);">
                         Action required in last 48h
                     </div>
                 </div>
             </div>
 
-            <!-- Complex Grid Layout -->
+            <!-- Balanced 2-Column Main Section -->
             <div class="dash-grid-large">
-                <!-- Quick Actions / Predictors -->
+                <!-- Column 1: New Risk Intelligence Assessment -->
                 <div class="card animate-slide-up delay-400">
-                    <h3 style="margin-bottom: var(--spacing-4);">New Prediction</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Select an intelligence module to run a new prediction based on live observations.</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-2);">
+                        <h3 style="margin: 0;">New Risk Assessment</h3>
+                        <span class="risk-badge good" style="font-size: 0.75rem;">ML Ready</span>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: var(--spacing-4);">
+                        Select an environmental intelligence engine to evaluate observable conditions and forecast epidemiological threats.
+                    </p>
                     
                     <div class="quick-action-list">
+                        <!-- Air Quality Launcher -->
                         <div class="quick-action-item" onclick="window.location.href='/templates/air_prediction.html'">
                             <div style="display: flex; align-items: center; gap: var(--spacing-3);">
-                                <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(37,99,235,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center;">
-                                    <i data-feather="wind"></i>
+                                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: rgba(37,99,235,0.12); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i data-feather="wind" style="width: 22px; height: 22px;"></i>
                                 </div>
                                 <div>
-                                    <strong style="display: block;">Run Air Quality Model</strong>
-                                    <span style="font-size: 0.85rem; color: var(--text-muted);">Predict PM2.5, NO2, and Asthma risks</span>
+                                    <strong style="display: block; font-size: 0.98rem; color: var(--text-main);">Run Air Quality Model</strong>
+                                    <span style="font-size: 0.82rem; color: var(--text-muted);">Predict PM2.5, PM10, NO2, and Severe Asthma hazards</span>
                                 </div>
                             </div>
                             <i data-feather="chevron-right" style="color: var(--text-muted)"></i>
                         </div>
 
+                        <!-- Water Contamination Launcher -->
                         <div class="quick-action-item" onclick="window.location.href='/templates/water_prediction.html'">
                             <div style="display: flex; align-items: center; gap: var(--spacing-3);">
-                                <div style="width: 40px; height: 40px; border-radius: var(--radius-md); background: rgba(16,185,129,0.1); color: var(--risk-low); display: flex; align-items: center; justify-content: center;">
-                                    <i data-feather="droplet"></i>
+                                <div style="width: 44px; height: 44px; border-radius: var(--radius-md); background: rgba(16,185,129,0.12); color: var(--risk-low); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                    <i data-feather="droplet" style="width: 22px; height: 22px;"></i>
                                 </div>
                                 <div>
-                                    <strong style="display: block;">Run Water Contamination Model</strong>
-                                    <span style="font-size: 0.85rem; color: var(--text-muted);">Predict Coliform, pH, and Cholera risks</span>
+                                    <strong style="display: block; font-size: 0.98rem; color: var(--text-main);">Run Water Contamination Model</strong>
+                                    <span style="font-size: 0.82rem; color: var(--text-muted);">Predict Coliform, pH, BOD, and Cholera / Typhoid outbreaks</span>
                                 </div>
                             </div>
                             <i data-feather="chevron-right" style="color: var(--text-muted)"></i>
@@ -135,19 +142,41 @@
                     </div>
                 </div>
 
-                <!-- Mini Weather / Location Card -->
-                <div class="card animate-slide-up delay-400">
-                    <h3 style="margin-bottom: var(--spacing-4);">Regional Baseline</h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-4);">
-                        <div>
-                            <div style="font-size: 2rem; font-weight: 700;">28°C</div>
-                            <div style="color: var(--text-muted);">Delhi, Urban Zone</div>
+                <!-- Column 2: Recent Field Assessments Log -->
+                <div class="card animate-slide-up delay-500">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--spacing-2);">
+                        <h3 style="margin: 0;">Recent Assessments</h3>
+                        <a href="/templates/history.html" style="font-size: 0.85rem; color: var(--accent); font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                            View All History <i data-feather="arrow-right" style="width: 14px; height: 14px;"></i>
+                        </a>
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: var(--spacing-4);">
+                        Live audit log of recent environmental field assessments and classified risks.
+                    </p>
+
+                    <div id="recent-assessments-container">
+                        <!-- Populated dynamically by dashboard.js -->
+                        <div class="recent-empty-state">
+                            <i data-feather="inbox" style="width: 32px; height: 32px; margin-bottom: 8px; color: var(--text-muted);"></i>
+                            <p style="font-size: 0.9rem; color: var(--text-muted);">No assessments recorded yet.</p>
                         </div>
-                        <i data-feather="sun" style="width: 48px; height: 48px; color: var(--risk-med)"></i>
                     </div>
-                    <div style="background-color: var(--primary); color: var(--bg-main); padding: var(--spacing-3); border-radius: var(--radius-md); text-align: center; font-size: 0.85rem;">
-                        <strong>Note:</strong> Winter conditions usually increase local baseline PM10 by 18%.
+                </div>
+            </div>
+
+            <!-- Platform Architecture & Humanitarian Trust Banner -->
+            <div class="card animate-slide-up delay-600" style="margin-top: var(--spacing-6); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-4); padding: var(--spacing-4) var(--spacing-6); background: var(--bg-card); border: 1px solid var(--border);">
+                <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+                    <div style="width: 38px; height: 38px; border-radius: var(--radius-md); background: rgba(37,99,235,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-feather="shield"></i>
                     </div>
+                    <div>
+                        <strong style="font-size: 0.95rem; display: block; color: var(--text-main);">EcoVision Humanitarian Intelligence Pipeline</strong>
+                        <span style="font-size: 0.82rem; color: var(--text-muted);">Dual Random Forest Classifiers • Epidemiological Rule Advisory • Local Encrypted Storage</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: var(--spacing-3);">
+                    <a href="/templates/about.html" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 16px;">Platform Architecture</a>
                 </div>
             </div>
 
